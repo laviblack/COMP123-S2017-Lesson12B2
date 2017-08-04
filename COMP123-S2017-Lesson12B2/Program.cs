@@ -4,6 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+ Name: Lyrica Yoshida
+ ID: 300923951
+ Date: August 3, 2017
+ Description: Calculator Demo Project
+ Version: 0.1 - Created the Project
+     */
+
 namespace COMP123_S2017_Lesson12B2
 {
     static class Program
@@ -16,7 +24,7 @@ namespace COMP123_S2017_Lesson12B2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new CalculatorForm());
         }
     }
 }
