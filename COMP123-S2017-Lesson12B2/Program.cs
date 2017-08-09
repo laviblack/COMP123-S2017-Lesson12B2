@@ -7,7 +7,7 @@ using System.Windows.Forms;
 /*
  Name: Lyrica Yoshida
  ID: 300923951
- Date: August 3, 2017
+ Date: August 8, 2017
  Description: Calculator Demo Project
  Version: 0.3 - Created an instance of the calculatorForm object
      */
