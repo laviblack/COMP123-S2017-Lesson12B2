@@ -9,21 +9,30 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 3, 2017
  Description: Calculator Demo Project
- Version: 0.2 - Started SplashForm first
+ Version: 0.3 - Created an instance of the calculatorForm object
      */
 
 namespace COMP123_S2017_Lesson12B2
 {
-    static class Program
+    public static class Program
     {
+        // Create Reference to Forms
+        public static CalculatorForm calculatorForm;
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        public static void Main()
         {
+
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            calculatorForm = new CalculatorForm(); 
+            // instantiate a new object of type CalculatorForm
+
             Application.Run(new SplashForm());
         }
     }
