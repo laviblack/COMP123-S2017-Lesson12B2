@@ -9,7 +9,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 3, 2017
  Description: Calculator Demo Project
- Version: 0.1 - Created the Project
+ Version: 0.2 - Started SplashForm first
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -24,7 +24,7 @@ namespace COMP123_S2017_Lesson12B2
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CalculatorForm());
+            Application.Run(new SplashForm());
         }
     }
 }
