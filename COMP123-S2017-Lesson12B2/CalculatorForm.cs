@@ -14,7 +14,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 10, 2017
  Description: Calculator Demo Project
- Version: 1.0 - Fixed bug in CalculatorButton_Click
+ Version: 1.1 - Added function for Times and Devide operators
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -31,6 +31,8 @@ namespace COMP123_S2017_Lesson12B2
         private double _result;
 
         private bool _isOperandTwo;
+
+        private bool _isDevidebByZero;
 
         // PUBLIC PROPERTIES
         public bool IsDecimalClicked
@@ -93,6 +95,18 @@ namespace COMP123_S2017_Lesson12B2
             }
         }
 
+        public bool IsDevidedByZero
+        {
+            get
+            {
+                return this._isDevidebByZero;
+            }
+            set
+            {
+                this._isDevidebByZero = value;
+            }
+        }
+
         // CONSTRUCTORS
 
         /// <summary>
@@ -141,7 +155,14 @@ namespace COMP123_S2017_Lesson12B2
             {
                 if((OperandList.Count > 0) && (this.IsOperandTwo == false))
                 {
-                    ResultTextBox.Text = calculatorButton.Text;
+                    if(calculatorButton.Text == ".")
+                    {
+                        ResultTextBox.Text = "0.";
+                    }
+                    else
+                    {
+                        ResultTextBox.Text = calculatorButton.Text;
+                    }
                     this.IsOperandTwo = true;
                 }
                 else
@@ -189,8 +210,22 @@ namespace COMP123_S2017_Lesson12B2
         /// <param name="operandString"></param>
         private void _showResult(double operand)
         {
-            this._calculate(operand, this.CurrentOperator);
-            ResultTextBox.Text = this.Result.ToString();
+            if(OperandList.Count > 0)
+            {
+                this._calculate(operand, this.CurrentOperator);
+            }
+            else
+            {
+                this.Result = operand;
+            }
+            if (IsDevidedByZero)
+            {
+                ResultTextBox.Text = "Cannot devide by zero";
+            }
+            else
+            {
+                ResultTextBox.Text = this.Result.ToString();
+            }
         }
 
         /// <summary>
@@ -200,9 +235,10 @@ namespace COMP123_S2017_Lesson12B2
         private void _calculate(double operand, string operatorString)
         {
             OperandList.Add(operand);
-            if(OperandList.Count > 1)
+            this.IsDecimalClicked = false;
+            if (OperandList.Count > 1)
             {
-                switch(operatorString)
+                switch(CurrentOperator)
                 {
                     case "+":
                         this.Result = this.OperandList[0] + this.OperandList[1];
@@ -210,12 +246,37 @@ namespace COMP123_S2017_Lesson12B2
                     case "-":
                         this.Result = this.OperandList[0] - this.OperandList[1];
                         break;
+                    case "x":
+                        this.Result = this.OperandList[0] * this.OperandList[1];
+                        break;
+                    case "÷":
+                        if(this.OperandList[1] == 0)
+                        {
+                            this._clear();
+                            this.IsDevidedByZero = true;
+                        }
+                        else
+                        {
+                            this.Result = this.OperandList[0] / this.OperandList[1];
+                        }
+                        break;
                 }
                 this.OperandList.Clear();
                 this.OperandList.Add(this.Result);
                 this.IsOperandTwo = false;
             }
-
+            else
+            {
+                this.Result = operand;
+            }
+            if(IsDevidedByZero)
+            {
+                ResultTextBox.Text = "Cannot devide by zero";
+            }
+            else
+            {
+                ResultTextBox.Text = this.Result.ToString();
+            }
             this.CurrentOperator = operatorString;
         }
 
@@ -249,6 +310,7 @@ namespace COMP123_S2017_Lesson12B2
             this.OperandList = new List<double>();
             this.CurrentOperator = "C";
             this.IsOperandTwo = false;
+            this.IsDevidedByZero = false;
             this.Result = 0;
         }
 
