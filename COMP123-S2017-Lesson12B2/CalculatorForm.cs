@@ -14,7 +14,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 10, 2017
  Description: Calculator Demo Project
- Version: 0.9 - Added the _showResult methods
+ Version: 1.0 - Fixed bug in CalculatorButton_Click
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -29,6 +29,8 @@ namespace COMP123_S2017_Lesson12B2
         private List<double> _operandList;
 
         private double _result;
+
+        private bool _isOperandTwo;
 
         // PUBLIC PROPERTIES
         public bool IsDecimalClicked
@@ -79,6 +81,18 @@ namespace COMP123_S2017_Lesson12B2
             }
         }
 
+        public bool IsOperandTwo
+        {
+            get
+            {
+                return this._isOperandTwo;
+            }
+            set
+            {
+                this._isOperandTwo = value;
+            }
+        }
+
         // CONSTRUCTORS
 
         /// <summary>
@@ -125,7 +139,15 @@ namespace COMP123_S2017_Lesson12B2
             }
             else
             {
-                ResultTextBox.Text += calculatorButton.Text;
+                if((OperandList.Count > 0) && (this.IsOperandTwo == false))
+                {
+                    ResultTextBox.Text = calculatorButton.Text;
+                    this.IsOperandTwo = true;
+                }
+                else
+                {
+                    ResultTextBox.Text += calculatorButton.Text;
+                }
             }
 
 
@@ -189,6 +211,9 @@ namespace COMP123_S2017_Lesson12B2
                         this.Result = this.OperandList[0] - this.OperandList[1];
                         break;
                 }
+                this.OperandList.Clear();
+                this.OperandList.Add(this.Result);
+                this.IsOperandTwo = false;
             }
 
             this.CurrentOperator = operatorString;
@@ -223,6 +248,8 @@ namespace COMP123_S2017_Lesson12B2
             ResultTextBox.Text = "0";
             this.OperandList = new List<double>();
             this.CurrentOperator = "C";
+            this.IsOperandTwo = false;
+            this.Result = 0;
         }
 
         /// <summary>
