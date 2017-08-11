@@ -14,7 +14,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 10, 2017
  Description: Calculator Demo Project
- Version: 1.3 - Added the _changeSign method
+ Version: 1.4 - Fixed equals and devide operator bugs
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -136,6 +136,7 @@ namespace COMP123_S2017_Lesson12B2
         private void CalculatorButton_Click(object sender, EventArgs e)
         {
             Button calculatorButton = sender as Button; // downcasting
+            this.IsDevidedByZero = false;
 
             if ((this.IsDecimalClicked) && (calculatorButton.Text == "."))
             {
@@ -249,6 +250,7 @@ namespace COMP123_S2017_Lesson12B2
             {
                 ResultTextBox.Text = this.Result.ToString();
             }
+            this.CurrentOperator = "=";
         }
 
         /// <summary>
