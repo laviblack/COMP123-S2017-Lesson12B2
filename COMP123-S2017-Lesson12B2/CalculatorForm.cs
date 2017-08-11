@@ -14,7 +14,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 10, 2017
  Description: Calculator Demo Project
- Version: 1.4 - Fixed equals and devide operator bugs
+ Version: 1.5 - Added comments required
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -203,6 +203,10 @@ namespace COMP123_S2017_Lesson12B2
             }
         }
 
+        /// <summary>
+        /// This method changes the sign for the number in the ResultTextBox
+        /// </summary>
+        /// <param name="operand"></param>
         private void _changeSign(double operand)
         {
             this.Result = -1 * operand;
@@ -234,7 +238,7 @@ namespace COMP123_S2017_Lesson12B2
         /// <param name="operandString"></param>
         private void _showResult(double operand)
         {
-            if(OperandList.Count > 0)
+            if(this.OperandList.Count > 0)
             {
                 this._calculate(operand, this.CurrentOperator);
             }
@@ -242,7 +246,7 @@ namespace COMP123_S2017_Lesson12B2
             {
                 this.Result = operand;
             }
-            if (IsDevidedByZero)
+            if (this.IsDevidedByZero)
             {
                 ResultTextBox.Text = "Cannot devide by zero";
             }
@@ -259,11 +263,11 @@ namespace COMP123_S2017_Lesson12B2
         /// <param name=""></param>
         private void _calculate(double operand, string operatorString)
         {
-            OperandList.Add(operand);
+            this.OperandList.Add(operand);
             this.IsDecimalClicked = false;
-            if (OperandList.Count > 1)
+            if (this.OperandList.Count > 1)
             {
-                switch(CurrentOperator)
+                switch(this.CurrentOperator)
                 {
                     case "+":
                         this.Result = this.OperandList[0] + this.OperandList[1];
@@ -294,7 +298,7 @@ namespace COMP123_S2017_Lesson12B2
             {
                 this.Result = operand;
             }
-            if(IsDevidedByZero)
+            if(this.IsDevidedByZero)
             {
                 ResultTextBox.Text = "Cannot devide by zero";
             }
