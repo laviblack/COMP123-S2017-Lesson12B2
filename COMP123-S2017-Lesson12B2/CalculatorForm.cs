@@ -14,7 +14,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 10, 2017
  Description: Calculator Demo Project
- Version: 1.2 - Added the _deleteLastDigit method
+ Version: 1.3 - Added the _changeSign method
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -147,30 +147,26 @@ namespace COMP123_S2017_Lesson12B2
                 this.IsDecimalClicked = true;    
             }
 
-            if((ResultTextBox.Text == "0") && (calculatorButton.Text != "."))
+            if ((OperandList.Count > 0) && (this.IsOperandTwo == false))
+            {
+                if (calculatorButton.Text == ".")
+                {
+                    ResultTextBox.Text = "0.";
+                }
+                else
+                {
+                    ResultTextBox.Text = calculatorButton.Text;
+                }
+                this.IsOperandTwo = true;
+            }
+            else if ((ResultTextBox.Text == "0") && (calculatorButton.Text != "."))
             {
                 ResultTextBox.Text = calculatorButton.Text;
             }
             else
-            {
-                if((OperandList.Count > 0) && (this.IsOperandTwo == false))
-                {
-                    if(calculatorButton.Text == ".")
-                    {
-                        ResultTextBox.Text = "0.";
-                    }
-                    else
-                    {
-                        ResultTextBox.Text = calculatorButton.Text;
-                    }
-                    this.IsOperandTwo = true;
-                }
-                else
                 {
                     ResultTextBox.Text += calculatorButton.Text;
                 }
-            }
-
 
             //Debug.WriteLine("A Calculator Button was clicked");
         }
@@ -198,11 +194,18 @@ namespace COMP123_S2017_Lesson12B2
                     this._deleteLastDigit();
                     break;
                 case "±":
+                    this._changeSign(operand);
                     break;
                 default:
                     this._calculate(operand, operatorButton.Text);
                     break;
             }
+        }
+
+        private void _changeSign(double operand)
+        {
+            this.Result = -1 * operand;
+            ResultTextBox.Text = this.Result.ToString();
         }
 
         /// <summary>
