@@ -14,7 +14,7 @@ using System.Windows.Forms;
  ID: 300923951
  Date: August 10, 2017
  Description: Calculator Demo Project
- Version: 1.1 - Added function for Times and Devide operators
+ Version: 1.2 - Added the _deleteLastDigit method
      */
 
 namespace COMP123_S2017_Lesson12B2
@@ -195,12 +195,32 @@ namespace COMP123_S2017_Lesson12B2
                     this._showResult(operand);
                     break;
                 case "←":
+                    this._deleteLastDigit();
                     break;
                 case "±":
                     break;
                 default:
                     this._calculate(operand, operatorButton.Text);
                     break;
+            }
+        }
+
+        /// <summary>
+        /// This method deletes the last digit in the ResultTextBox
+        /// </summary>
+        private void _deleteLastDigit()
+        {
+            if(ResultTextBox.Text.Length == 1)
+            {
+                ResultTextBox.Text = "0";
+            }
+            else
+            {
+                if(ResultTextBox.Text.Substring(ResultTextBox.Text.Length-1,1) == ".")
+                {
+                    this.IsDecimalClicked = false;
+                }
+                ResultTextBox.Text = ResultTextBox.Text.Substring(0, ResultTextBox.Text.Length - 1);
             }
         }
 
